@@ -1,11 +1,23 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="utf-8"/>
     <title>MusicDB</title>
+    <link rel="stylesheet" href="resources/styles/materialize.min.css"/>
     <link rel="stylesheet" href="resources/styles/style.css"/>
 </head>
 <body>
-hello
-<script type="text/javascript" src="resources/scripts/core/app.js"></script>
+<div ng-app="MusicDB">
+    <div ng-view></div>
+</div>
+
+<!-- JS LIBRARIES -->
+<script type="text/javascript" src="resources/scripts/lib/jquery.min.js"></script>
+<script type="text/javascript" src="resources/scripts/lib/angular.min.js"></script>
+<script type="text/javascript" src="resources/scripts/lib/angular-route.min.js"></script>
+<script type="text/javascript" src="resources/scripts/lib/materialize.min.js"></script>
+<!-- SCRIPTS -->
+<script type="text/javascript" src="resources/scripts/app.js"></script>
+<script type="text/javascript" src="resources/scripts/app.config.js"></script>
 </body>
 </html>
