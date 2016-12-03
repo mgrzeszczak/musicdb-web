@@ -1,0 +1,17 @@
+<div class="jumbotron">
+    <h1>{{app.model.Name}}</h1>
+    <h2>By: <a href="{{'#artist/'+app.model.Artist.Id}}">{{app.model.Artist.Name}}</a></h2>
+    <h3>Number: {{app.model.Number}}</h3>
+    <h3>Length: {{app.model.Length}}</h3>
+
+    <div>
+        <button class="btn btn-warning" ng-click="app.edit()">Edit</button>
+        <button class="btn btn-danger" ng-click="app.delete()">Delete</button>
+    </div>
+
+
+    <h3>Tracklist</h3>
+    <div ng-include="'resources/pages/tables/song_table.html'"></div>
+
+    <button class="btn btn-primary" ng-click="app.addSong()">Add song</button>
+</div>

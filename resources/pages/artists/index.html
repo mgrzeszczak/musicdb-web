@@ -1,0 +1,14 @@
+<div class="jumbotron">
+    <h1>{{app.model.Name}}</h1>
+    <h2>Genre: {{app.model.Genre}}</h2>
+    <p>{{app.model.Description}}</p>
+
+    <div>
+        <button class="btn btn-warning" ng-click="app.edit()">Edit</button>
+        <button class="btn btn-danger" ng-click="app.delete()">Delete</button>
+    </div>
+    <h2>Albums</h2>
+    <div ng-include="'resources/pages/tables/album_table.html'"></div>
+
+    <button class="btn btn-primary" ng-click="app.addAlbum()">Add album</button>
+</div>

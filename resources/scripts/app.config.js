@@ -7,25 +7,33 @@
                 controllerAs : 'app',
                 authorize : true
             })
-            .when('/song',{
-                template : 'WHAT UP',
-                authorize : false
+            .when('/song/:songId/edit',{
+                templateUrl : 'resources/pages/songs/edit.html',
+                controller :'songController',
+                controllerAs : 'app',
+                authorize : true
             })
-            .when('/album',{
-                template : 'albumTest',
+            .when('/album/:albumId',{
+                templateUrl : 'resources/pages/albums/index.html',
                 controller :'albumController',
                 controllerAs : 'app',
                 authorize : true
             })
-            .when('/artist',{
-                template : 'aritstTest',
+            .when('/album/:albumId/edit',{
+                templateUrl : 'resources/pages/albums/edit.html',
+                controller :'albumController',
+                controllerAs : 'app',
+                authorize : true
+            })
+            .when('/artist/:artistId',{
+                templateUrl : 'resources/pages/artists/index.html',
                 controller :'artistController',
                 controllerAs : 'app',
                 authorize : true
             })
-            .when('/search',{
-                template : 'albumTest',
-                controller :'searchController',
+            .when('/artist/:artistId/edit',{
+                templateUrl : 'resources/pages/artists/edit.html',
+                controller :'artistController',
                 controllerAs : 'app',
                 authorize : true
             })

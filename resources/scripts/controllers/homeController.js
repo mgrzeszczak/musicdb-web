@@ -1,6 +1,6 @@
 (function(){
 
-    angular.module('application').controller('homeController',function(httpRequest){
+    angular.module('application').controller('homeController',function(http){
         var target = this;
         target.focus = 'song';
 
@@ -8,7 +8,7 @@
             var url = '/'+type+'/search?searchText='+target.searchText;
             if (page!=undefined) url = url+'&pageNumber='+page;
 
-            httpRequest.get(url,
+            http.get(url,
                 function(success){
                     target[type+'Page'] = success.data;
                     console.log(success.data);

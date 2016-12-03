@@ -1,3 +1,18 @@
-<div>
+<div class="jumbotron">
+    <h1>{{app.model.Title}}</h1>
+    <h2>From: <a href="{{'#album/'+app.model.Album.Id}}">{{app.model.Album.Name}}</a></h2>
+    <h2>By: <a href="{{'#artist/'+app.model.Album.Artist.Id}}">{{app.model.Album.Artist.Name}}</a></h2>
+    <h3>Number: {{app.model.Number}}</h3>
+    <h3>Length: {{app.model.Length}}</h3>
 
+    <div>
+        <button class="btn btn-warning" ng-click="app.edit()">Edit</button>
+        <button class="btn btn-danger" ng-click="app.delete()">Delete</button>
+    </div>
+    <div class="yt-container">
+        <iframe ng-show="app.model.YoutubeUrl!=null" width="480" height="270" src="{{app.trustSrc(app.model.YoutubeUrl)}}" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <h3>Lyrics</h3>
+    <p>{{app.model.Lyrics}}</p>
 </div>
