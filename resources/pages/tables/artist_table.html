@@ -1,0 +1,18 @@
+<div>
+<table class="table table-striped" ng-show="app.artistPage.Items.length>0">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Genre</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr ng-repeat="artist in app.artistPage.Items">
+        <td><a href="{{'#artist/'+artist.Id}}">{{artist.Name}}</a></td>
+        <td>{{artist.Genre}}</td>
+    </tr>
+    </tbody>
+</table>
+
+</div>

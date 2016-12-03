@@ -1,5 +1,5 @@
 (function(){
-    angular.module('application').config(function($routeProvider,$locationProvider, toastrConfig){
+    angular.module('application').config(function($routeProvider,$locationProvider,$httpProvider, toastrConfig){
         $routeProvider
             .when('/song/:songId',{
                 templateUrl : 'resources/pages/songs/index.html',
@@ -30,19 +30,19 @@
                 authorize : true
             })
             .when('/login',{
-                templateUrl : 'resources/pages/songs/index.html',
+                templateUrl : 'resources/pages/forms/login.html',
                 controller :'loginController',
                 controllerAs : 'app',
                 authorize : false
             })
             .when('/register',{
-                template : 'registerTest',
+                templateUrl : 'resources/pages/forms/register.html',
                 controller :'registerController',
                 controllerAs : 'app',
                 authorize : false
             })
             .otherwise({
-                template : 'home',
+                templateUrl : 'resources/pages/home/index.html',
                 controller :'homeController',
                 controllerAs : 'app',
                 authorize: true
@@ -67,6 +67,8 @@
             titleClass: 'toast-title',
             toastClass: 'toast'
         });
+
+        $httpProvider.defaults.useXDomain = true;
     })
         .run(function ($rootScope, $location, loginService, toastr) {
             $rootScope.$on('$routeChangeStart', function (event, next, current) {

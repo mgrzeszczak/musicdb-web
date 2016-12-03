@@ -1,0 +1,23 @@
+<div>
+<table class="table table-striped" ng-show="app.songPage.Items.length>0">
+    <thead>
+    <tr>
+        <th>No</th>
+        <th>Title</th>
+        <th>Album</th>
+        <th>Artist</th>
+        <th>Length</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="song in app.songPage.Items">
+        <td>{{song.Number}}</td>
+        <td><a href="{{'#song/'+song.Id}}">{{song.Title}}</a></td>
+        <td><a href="{{'#album/'+song.Album.Id}}">{{song.Album.Name}}</a></td>
+        <td><a href="{{'#artist/'+song.Album.Artist.Id}}">{{song.Album.Artist.Name}}</a></td>
+        <td>{{song.Length}}</td>
+    </tr>
+    </tbody>
+</table>
+
+</div>
