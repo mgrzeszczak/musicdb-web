@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <div id="custom-search-input">
+                <div class="input-group col-md-12">
+                    <input id="search-box" type="text" class="form-control input-lg" ng-change="app.search();" placeholder="Kings of Leon" ng-model="app.searchText" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-info btn-lg" ng-click="app.search();" type="button">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <nav class="breadcrumb">
+                <button class="btn btn-default" ng-class="{'btn-primary': app.focus==='song'}" ng-click="app.focus='song'">Songs</button>
+                <button class="btn btn-default" ng-class="{'btn-primary' : app.focus==='album'}" ng-click="app.focus='album'">Albums</button>
+                <button class="btn btn-default" ng-class="{'btn-primary' : app.focus==='artist'}" ng-click="app.focus='artist'">Artists</button>
+            </nav>
+            <div ng-include="'resources/pages/tables/song_table.html'" ng-hide="app.focus!='song'"></div>
+            <div ng-include="'resources/pages/tables/album_table.html'" ng-hide="app.focus!='album'"></div>
+            <div ng-include="'resources/pages/tables/artist_table.html'" ng-hide="app.focus!='artist'"></div>
+            <nav>
+                <ul class="pager">
+                    <li><button class="btn btn-default" type="submit" ng-class="{disabled : app[app.focus+'Page'].PageNumber===1 || app[app.focus+'Page']===undefined}" ng-click="app.previousPage()">Previous</button></li>
+                    <li><button class="btn btn-default" type="submit" ng-class="{disabled : app[app.focus+'Page'].PageNumber===app[app.focus+'Page'].TotalPages}" ng-click="app.nextPage()">Next</button></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
