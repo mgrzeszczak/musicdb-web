@@ -1,37 +1,55 @@
 (function(){
     angular.module('application').config(function($routeProvider,$locationProvider,$httpProvider, toastrConfig){
         $routeProvider
-            .when('/song/:songId',{
+            .when('/song/show/:songId',{
                 templateUrl : 'resources/pages/songs/index.html',
                 controller :'songController',
                 controllerAs : 'app',
                 authorize : true
             })
-            .when('/song/:songId/edit',{
+            .when('/song/edit/:songId',{
                 templateUrl : 'resources/pages/songs/edit.html',
                 controller :'songController',
                 controllerAs : 'app',
                 authorize : true
             })
-            .when('/album/:albumId',{
+            .when('/song/add',{
+                templateUrl : 'resources/pages/songs/edit.html',
+                controller :'songController',
+                controllerAs : 'app',
+                authorize : true
+            })
+            .when('/album/show/:albumId',{
                 templateUrl : 'resources/pages/albums/index.html',
                 controller :'albumController',
                 controllerAs : 'app',
                 authorize : true
             })
-            .when('/album/:albumId/edit',{
+            .when('/album/edit/:albumId',{
                 templateUrl : 'resources/pages/albums/edit.html',
                 controller :'albumController',
                 controllerAs : 'app',
                 authorize : true
             })
-            .when('/artist/:artistId',{
+            .when('/album/add',{
+                templateUrl : 'resources/pages/albums/edit.html',
+                controller :'albumController',
+                controllerAs : 'app',
+                authorize : true
+            })
+            .when('/artist/show/:artistId',{
                 templateUrl : 'resources/pages/artists/index.html',
                 controller :'artistController',
                 controllerAs : 'app',
                 authorize : true
             })
-            .when('/artist/:artistId/edit',{
+            .when('/artist/edit/:artistId',{
+                templateUrl : 'resources/pages/artists/edit.html',
+                controller :'artistController',
+                controllerAs : 'app',
+                authorize : true
+            })
+            .when('/artist/add',{
                 templateUrl : 'resources/pages/artists/edit.html',
                 controller :'artistController',
                 controllerAs : 'app',

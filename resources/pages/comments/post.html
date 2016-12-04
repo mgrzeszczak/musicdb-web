@@ -2,13 +2,13 @@
 <fieldset>
 
 <!-- Form Name -->
-<legend>Comment</legend>
+<legend>New comment</legend>
 
 <!-- Textarea -->
 <div class="form-group">
   <label class="col-md-4 control-label" for="comment"></label>
   <div class="col-md-4">                     
-    <textarea class="form-control" id="comment" name="comment"></textarea>
+    <textarea class="form-control" id="comment" name="comment" ng-model="app.comment.Content"></textarea>
   </div>
 </div>
 
@@ -16,7 +16,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="commentBtn"></label>
   <div class="col-md-4">
-    <button id="commentBtn" name="commentBtn" class="btn btn-primary">Post</button>
+    <button id="commentBtn" name="commentBtn" class="btn btn-primary" ng-click="app.postComment()">Post</button>
   </div>
 </div>
 

@@ -12,8 +12,8 @@
     <tbody>
     <tr ng-repeat="album in app.albumPage.Items">
         <td>{{album.Number}}</td>
-        <td><a href="{{'#album/'+album.Id}}">{{album.Name}}</a></td>
-        <td><a href="{{'#artist/'+album.Artist.Id}}">{{album.Artist.Name}}</a></td>
+        <td><a href="{{'#album/show/'+album.Id}}">{{album.Name}}</a></td>
+        <td><a href="{{'#artist/show/'+album.Artist.Id}}">{{album.Artist.Name}}</a></td>
         <td>{{album.Year}}</td>
         <td>{{album.Length}}</td>
     </tr>

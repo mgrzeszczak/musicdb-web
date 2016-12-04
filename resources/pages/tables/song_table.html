@@ -12,9 +12,9 @@
     <tbody>
     <tr ng-repeat="song in app.songPage.Items">
         <td>{{song.Number}}</td>
-        <td><a href="{{'#song/'+song.Id}}">{{song.Title}}</a></td>
-        <td><a href="{{'#album/'+song.Album.Id}}">{{song.Album.Name}}</a></td>
-        <td><a href="{{'#artist/'+song.Album.Artist.Id}}">{{song.Album.Artist.Name}}</a></td>
+        <td><a href="{{'#song/show/'+song.Id}}">{{song.Title}}</a></td>
+        <td><a href="{{'#album/show/'+song.Album.Id}}">{{song.Album.Name}}</a></td>
+        <td><a href="{{'#artist/show/'+song.Album.Artist.Id}}">{{song.Album.Artist.Name}}</a></td>
         <td>{{song.Length}}</td>
     </tr>
     </tbody>

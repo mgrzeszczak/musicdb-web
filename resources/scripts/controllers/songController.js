@@ -1,29 +1,98 @@
 (function(){
 
-    angular.module('application').controller('songController',['$routeParams','http','$location','toastr','$sce',function($routeParams,http,$location,toastr,$sce){
+    angular.module('application').controller('songController',['$routeParams','http','$location','toastr','$sce','$window','cache','commentService',function($routeParams,http,$location,toastr,$sce,$window,cache,commentService){
         var target = this;
-        http.get('/song/get/'+$routeParams.songId,function(success){
-            target.model = success.data;
-            console.log(target.model);
-        }, function(error){
-            toastr.error('Song not found');
-            $location.path('#');
-        });
+
+        var url = $location.url();
+        if (url.indexOf('add')==-1){
+            http.get('/song/get/'+$routeParams.songId,function(success){
+                target.model = success.data;
+                console.log(target.model);
+            }, function(error){
+                toastr.error('Song not found');
+                $location.path('#');
+            });
+            getComments(1);
+        } else {
+            target.model = cache.get('model');
+        }
+
+
+
+
+        function getComments(page){
+            commentService.getComments($routeParams.songId,'SONG',page!=undefined?page : 1,function(success){
+                target.commentPage = success.data;
+                console.log(success.data);
+            },function(error){
+                toastr.error('Cannot download comments');
+            });
+        }
+
+        target.nextCommentPage = function(){
+          getComments(target.commentPage.PageNumber+1);
+        };
+        target.previousCommentPage = function(){
+          getComments(target.commentPage.PageNumber-1);
+        };
+
+        target.postComment = function(){
+            target.comment.EntityId = $routeParams.songId;
+            target.comment.EntityType = 'SONG';
+            http.post('/comment/add',target.comment,function(success){
+                toastr.success('Success');
+                getComments(1);
+                console.log(success);
+            },function(error){
+                toastr.error('Error');
+                console.log(error);
+            });
+        };
 
         target.trustSrc = function(src) {
             return $sce.trustAsResourceUrl(src);
         };
 
         target.return = function(){
-            $location.path('/song/'+$routeParams.songId);
+            $location.path( (url.indexOf('add')==-1) ? ('/song/show/'+$routeParams.songId) : '/album/show/'+target.model.Album.Id);
         };
 
+
+
         target.edit = function(){
-            $location.path='#song/'+$routeParams.songId+'/edit';
+            console.log('test');
+
+            $location.path('/song/edit/'+$routeParams.songId);
+            //$window.location.assign('#song/'+$routeParams.songId+'/edit');
+        };
+
+        target.save = function(){
+            var onSuccess = function(success){
+                toastr.success('Success');
+                $location.path('/song/show/'+success.data.Id);
+            };
+            var onError = function(error){
+                console.log(error);
+                toastr.error(error.data.Error);
+            };
+            if ($location.url().indexOf('edit')==-1) http.post('/song/add',target.model,onSuccess,onError);
+            else http.put('/song/update',target.model,onSuccess,onError);
+        };
+
+        target.delete = function(){
+            http.delete('/song/delete/'+target.model.Id,function(success){
+                toastr.success('Success');
+                $location.path('/album/'+target.model.Album.Id);
+            }, function(error){
+                toastr.error(error);
+                console.log(error);
+            });
         };
 
         target.numbers = [];
         for (var i=1;i<=50;i++) target.numbers.push(i);
+
+
     }]);
 
 })();

@@ -1,0 +1,18 @@
+<div>
+    <h2>Comments</h2>
+    <ul>
+        <li ng-repeat="comment in app.commentPage.Items">
+            <div>
+                <h2>{{comment.User.Login}}</h2>
+                <h3>{{comment.TimeStamp}}</h3>
+                <p>{{comment.Content}}</p>
+            </div>
+        </li>
+    </ul>
+    <nav>
+        <ul class="pager">
+            <li><button class="btn btn-default" ng-class="{disabled : app.commentPage.PageNumber===1 || app.commentPage===undefined}" ng-click="app.previousCommentPage()">Previous</button></li>
+            <li><button class="btn btn-default" ng-class="{disabled : app.commentPage.PageNumber===app.commentPage.TotalPages}" ng-click="app.nextCommentPage()">Next</button></li>
+        </ul>
+    </nav>
+</div>

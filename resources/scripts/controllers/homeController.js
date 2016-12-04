@@ -1,12 +1,15 @@
 (function(){
 
-    angular.module('application').controller('homeController',function(http){
+    angular.module('application').controller('homeController',function(http,$location){
         var target = this;
         target.focus = 'song';
 
         var search = function(type,page){
+
+            console.log(type,page);
+
             var url = '/'+type+'/search?searchText='+target.searchText;
-            if (page!=undefined) url = url+'&pageNumber='+page;
+            if (page!=undefined) url = url+'&pageNr='+page;
 
             http.get(url,
                 function(success){
@@ -16,6 +19,10 @@
                 function(error){
                     console.log(error);
                 });
+        };
+
+        target.addArtist = function(){
+            $location.path('/artist/add');
         };
 
         target.nextPage = function(){

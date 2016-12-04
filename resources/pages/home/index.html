@@ -16,13 +16,14 @@
                 <button class="btn btn-default" ng-class="{'btn-primary' : app.focus==='album'}" ng-click="app.focus='album'">Albums</button>
                 <button class="btn btn-default" ng-class="{'btn-primary' : app.focus==='artist'}" ng-click="app.focus='artist'">Artists</button>
             </nav>
+            <button class="btn btn-primary" ng-click="app.addArtist()">Add artist</button>
             <div ng-include="'resources/pages/tables/song_table.html'" ng-hide="app.focus!='song'"></div>
             <div ng-include="'resources/pages/tables/album_table.html'" ng-hide="app.focus!='album'"></div>
             <div ng-include="'resources/pages/tables/artist_table.html'" ng-hide="app.focus!='artist'"></div>
             <nav>
                 <ul class="pager">
-                    <li><button class="btn btn-default" type="submit" ng-class="{disabled : app[app.focus+'Page'].PageNumber===1 || app[app.focus+'Page']===undefined}" ng-click="app.previousPage()">Previous</button></li>
-                    <li><button class="btn btn-default" type="submit" ng-class="{disabled : app[app.focus+'Page'].PageNumber===app[app.focus+'Page'].TotalPages}" ng-click="app.nextPage()">Next</button></li>
+                    <li><button class="btn btn-default" ng-class="{disabled : app[app.focus+'Page'].PageNumber===1 || app[app.focus+'Page']===undefined}" ng-click="app.previousPage()">Previous</button></li>
+                    <li><button class="btn btn-default" ng-class="{disabled : app[app.focus+'Page'].PageNumber===app[app.focus+'Page'].TotalPages}" ng-click="app.nextPage()">Next</button></li>
                 </ul>
             </nav>
         </div>

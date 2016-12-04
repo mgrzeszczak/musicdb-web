@@ -11,7 +11,7 @@
 </head>
 <body ng-app="application">
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top" ng-controller="navigationController as app">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -24,9 +24,12 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li ><a href="#login">Login</a></li>
-                <li ><a href="#register">Register</a></li>
-                <li ><a href="#logout">Logout</a></li>
+                <li ng-show="app.isLoggedIn()===false"><a href="#login">Login</a></li>
+                <li ng-show="app.isLoggedIn()===false"><a href="#register">Register</a></li>
+                <li ng-show="app.isLoggedIn()===true"><a>{{app.getLogin()}}</a></li>
+                <li ng-show="app.isLoggedIn()===true">
+                    <a class="clickable" ng-click="app.logOut()">Logout</a>
+                </li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
@@ -54,6 +57,7 @@
 <script type="text/javascript" src="resources/scripts/app.config.js"></script>
 <!-- CONTROLLERS -->
 <script type="text/javascript" src="resources/scripts/controllers/songController.js"></script>
+<script type="text/javascript" src="resources/scripts/controllers/navigationController.js"></script>
 <script type="text/javascript" src="resources/scripts/controllers/albumController.js"></script>
 <script type="text/javascript" src="resources/scripts/controllers/artistController.js"></script>
 <script type="text/javascript" src="resources/scripts/controllers/searchController.js"></script>

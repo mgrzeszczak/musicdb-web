@@ -22,6 +22,18 @@
         };
     });
 
+    angular.module('application').factory('commentService',['http',function(http){
+
+        return {
+            getComments : function(id,type,page,onSuccess,onError){
+                var url = '/comment/find?entityType='+type+'&entityId='+id;
+                if (page!=undefined) url = url+"&pageNr="+page;
+                http.get(url,onSuccess,onError);
+            }
+        };
+
+    }]);
+
     angular.module("application").factory('loginService',['$cookieStore','$location',function($cookieStore,$location) {
         var login = null;
         var token = null;
