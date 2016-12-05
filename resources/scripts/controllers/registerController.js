@@ -5,15 +5,13 @@
 
         target.register = function(){
             console.log(target.form);
-            http.request('POST','/user/register',target.form)
-                .then(function(resp){
-                    console.log(resp.data);
+	    http.post('/user/register',target.form,function(success){
                     toastr.success('','Successfully registered');
                     $location.path('/login');
-                },function(error) {
+		},function(error){
                     console.log(error.data);
                     toastr.error('Invalid data.','Failed to register')
-                });
+		});
         };
     });
 
