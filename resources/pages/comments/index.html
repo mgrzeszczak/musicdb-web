@@ -6,6 +6,7 @@
                 <h2>{{comment.User.Login}}</h2>
                 <h3>{{comment.TimeStamp}}</h3>
                 <p>{{comment.Content}}</p>
+                <button class="btn btn-danger" ng-show="app.role=='ADMIN'" ng-click="app.deleteComment(comment.Id)">Delete</button>
             </div>
         </li>
     </ul>

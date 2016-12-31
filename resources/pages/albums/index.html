@@ -3,7 +3,7 @@
     <h2>By: <a href="{{'#artist/show/'+app.model.Artist.Id}}">{{app.model.Artist.Name}}</a></h2>
     <h3>Number: {{app.model.Number}}</h3>
     <h3>Length: {{app.model.Length}}</h3>
-
+    <div ng-include="'resources/pages/rating/index.html'"></div>
     <div>
         <button class="btn btn-warning" ng-click="app.edit()">Edit</button>
         <button class="btn btn-danger" ng-click="app.delete()">Delete</button>

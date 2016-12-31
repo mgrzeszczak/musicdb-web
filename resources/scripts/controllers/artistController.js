@@ -1,7 +1,11 @@
 (function(){
 
-    angular.module('application').controller('artistController',['$routeParams','http','toastr','$location','$window','cache','commentService',function($routeParams,http,toastr,$location,$window,cache,commentService){
+    angular.module('application').controller('artistController',['$routeParams','http','toastr','$location','$window','cache','commentService','loginService'
+        ,function($routeParams,http,toastr,$location,$window,cache,commentService,loginService){
         var target = this;
+
+        target.role = loginService.getRole();
+        console.log(target.role);
 
         var url = $location.url();
         if (url.indexOf('add')==-1){
@@ -18,6 +22,7 @@
                 $location.path('#');
             });
             getComments(1);
+            getRating();
         } else {
             target.model = {Genre : 'Rock'};
         }
@@ -40,6 +45,60 @@
         };
 
 
+        target.change = function(){
+            console.log(target.userRating);
+            if (rated===false){
+                target.userRating.EntityType = 'ARTIST';
+                target.userRating.EntityId = $routeParams.artistId;
+                rated = true;
+                addRating();
+            }
+            updateRating();
+        };
+
+        var rated = false;
+        function getRating(){
+            http.get('/rating/get?entityType=ARTIST&entityId='+$routeParams.artistId,function(success){
+                target.userRating = success.data;
+                if (target.userRating!=null) rated = true;
+            }, function(error){
+
+            });
+
+            http.get('/rating/average?entityType=ARTIST&entityId='+$routeParams.artistId,function(success){
+                target.averageRating = success.data.toFixed(2);
+            }, function(error){
+
+            });
+        }
+
+        function addRating(){
+            http.post('/rating/add',target.userRating,function(success){
+                console.log(success);
+                target.userRating = success.data;
+                getRating();
+            },function(error){
+                console.log(error);
+                getRating();
+            });
+
+        }
+
+        function updateRating(){
+            http.put('/rating/update',target.userRating,function(success){
+                console.log(success);
+                target.userRating = success.data;
+                getRating();
+            },function(error){
+                console.log(error);
+                getRating();
+            });
+        }
+
+        target.deleteComment = function(id){
+            commentService.deleteComment(id);
+            getComments(target.commentPage.PageNumber);
+        };
 
         function getComments(page){
             commentService.getComments($routeParams.artistId,'ARTIST',page!=undefined?page : 1,function(success){

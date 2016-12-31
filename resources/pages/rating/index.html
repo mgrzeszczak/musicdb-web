@@ -1,0 +1,16 @@
+<div>
+    <h2>Rating</h2>
+    Average {{app.averageRating}}
+    <div>
+        <div>
+            You
+            <select id="rating" name="rating" ng-model="app.userRating.Value" ng-change="app.change()">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+    </div>
+</div>

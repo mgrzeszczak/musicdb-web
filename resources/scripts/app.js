@@ -22,13 +22,20 @@
         };
     });
 
-    angular.module('application').factory('commentService',['http',function(http){
+    angular.module('application').factory('commentService',['http','toastr',function(http,toastr){
 
         return {
             getComments : function(id,type,page,onSuccess,onError){
                 var url = '/comment/find?entityType='+type+'&entityId='+id;
                 if (page!=undefined) url = url+"&pageNr="+page;
                 http.get(url,onSuccess,onError);
+            },
+            deleteComment : function(id){
+                http.delete('/comment/delete/'+id,function(success){
+                    toastr.success('Comment deleted');
+                }, function(error){
+                    toastr.error('Failed to delete comment');
+                });
             }
         };
 
@@ -116,7 +123,7 @@
             }).then(function(resp){
                 onSuccess(resp);
             },function(error){
-                if (error.Status===403){
+                if (error.status===403){
                   loginService.logOut();
                   toastr.error('You have been logged out!');
                 } else onError(error);

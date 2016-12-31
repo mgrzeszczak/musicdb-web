@@ -5,6 +5,8 @@
     <h3>Number: {{app.model.Number}}</h3>
     <h3>Length: {{app.model.Length}}</h3>
 
+    <div ng-include="'resources/pages/rating/index.html'"></div>
+
     <div>
         <button class="btn btn-warning" ng-click="app.edit()">Edit</button>
         <button class="btn btn-danger" ng-click="app.delete()">Delete</button>
@@ -12,6 +14,8 @@
     <div class="yt-container">
         <iframe ng-show="app.model.YoutubeUrl!=null" width="480" height="270" src="{{app.trustSrc(app.model.YoutubeUrl)}}" frameborder="0" allowfullscreen></iframe>
     </div>
+
+
 
     <h3>Lyrics</h3>
     <p style="white-space: pre-wrap;">{{app.model.Lyrics}}</p>
