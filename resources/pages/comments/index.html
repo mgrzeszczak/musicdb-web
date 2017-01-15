@@ -20,7 +20,7 @@
     <nav>
         <ul class="pager">
             <li><button class="btn btn-default" ng-class="{disabled : app.commentPage.PageNumber===1 || app.commentPage===undefined}" ng-click="app.previousCommentPage()">Previous</button></li>
-            <li><button class="btn btn-default" ng-class="{disabled : app.commentPage.PageNumber===app.commentPage.TotalPages}" ng-click="app.nextCommentPage()">Next</button></li>
+            <li><button class="btn btn-default" ng-class="{disabled : app.commentPage.PageNumber===app.commentPage.TotalPages || app.commentPage===undefined}" ng-click="app.nextCommentPage()">Next</button></li>
         </ul>
     </nav>
 </div>
