@@ -131,7 +131,7 @@
             }).then(function(resp){
                 onSuccess(resp);
             },function(error){
-                if (error.status===403){
+                if (error.status===403 && loginService.isLoggedIn()){
                   loginService.logOut();
                   toastr.error('You have been logged out!');
                 } else onError(error);
