@@ -107,7 +107,7 @@
     }]);
     angular.module("application").factory('http',function($http, loginService,toastr) {
         var request = function(method, url, data, onSuccess, onError) {
-            var baseUrl = 'http://164.132.63.49/musicdb/api';
+            var baseUrl = 'http://localhost:55059/api';
             var headers = {
                 'Content-Type': 'application/json'
             };
@@ -141,6 +141,49 @@
             },
             put : function(url,data,onSuccess,onError){
                 request('PUT',url,data,onSuccess,onError);
+            },
+            getErrorMessage : function(error){
+                switch (error.data.ErrorCode){
+                    case 'UNKNOWN_ERROR':
+                        return 'Unknown error occured.';
+                        break;
+                    case 'ARTIST_NAME_TAKEN':
+                        return 'Artist name is already taken.';
+                        break;
+                    case 'ALBUM_NAME_TAKEN':
+                        return 'That artist already has an album with that name.';
+                        break;
+                    case 'SONG_TITLE_TAKEN':
+                        return 'That album already has a song with that title.';
+                        break;
+                    case 'SONG_NUMBER_TAKEN':
+                        return 'That album already has a song with that number.';
+                        break;
+                    case 'ALBUM_NUMBER_TAKEN':
+                        return 'That artist already has an album with that number.';
+                        break;
+                    case 'INVALID_CREDENTIALS':
+                        return 'Invalid credentials.';
+                        break;
+                    case 'NOT_FOUND':
+                        return 'Object not found.';
+                        break;
+                    case 'INVALID_VERSION':
+                        return 'Object was edited in the meantime.';
+                        break;
+                    case 'LOGIN_TAKEN':
+                        return 'Login is taken.';
+                        break;
+                    case 'VALIDATION_FAILED':
+                        return 'Invalid data.';
+                        break;
+                    case 'MULTIPLE_RATINGS':
+                        return 'Unknown error occured.';
+                        break;
+                    case 'UNAUTHORIZED':
+                        return 'You\'re not authorized to view that.';
+                        break;
+                }
             }
         }
     });

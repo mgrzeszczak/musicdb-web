@@ -10,6 +10,7 @@
         var url = $location.url();
         if (url.indexOf('add')==-1){
             http.get('/artist/get/'+$routeParams.artistId,function(success){
+                console.log(target.model);
                 target.model = success.data;
                 http.get('/album/byArtist/'+$routeParams.artistId,function(success){
                     target.albumPage = {Items : success.data};
@@ -39,7 +40,7 @@
         };
 
         target.addAlbum = function(){
-            var album = {Artist : target.model, Number : 1};
+            var album = {Artist : target.model, Number : 1, Year : 1900, Length : '00:00:00'};
             cache.put('model',album);
             $location.path('/album/add');
         };
@@ -52,6 +53,7 @@
                 target.userRating.EntityId = $routeParams.artistId;
                 rated = true;
                 addRating();
+                return;
             }
             updateRating();
         };
@@ -124,22 +126,39 @@
                 getComments(1);
                 console.log(success);
             },function(error){
-                toastr.error('Error');
+                toastr.error(http.getErrorMessage(error));
                 console.log(error);
             });
         };
 
         target.save = function(){
+            console.log('Saving model: ');
+            console.log(target.model);
+            if (target.model.Name === undefined || $.trim(target.model.Name) === '') {
+                toastr.error("Name cannot be empty!");
+                return;
+            }
+
             var onSuccess = function(success){
                 toastr.success('Success');
                 $location.path('/artist/show/'+success.data.Id);
             };
             var onError = function(error){
                 console.log(error);
-                toastr.error(error.data.Error);
+                toastr.error(http.getErrorMessage(error));
             };
             if ($location.url().indexOf('edit')==-1) http.post('/artist/add',target.model,onSuccess,onError);
             else http.put('/artist/update',target.model,onSuccess,onError);
+        };
+
+        target.delete = function(){
+            http.delete('/artist/delete/'+target.model.Id,function(success){
+                toastr.success('Success');
+                $location.path('#');
+            }, function(error){
+                toastr.error(http.getErrorMessage(error));
+                console.log(error);
+            });
         };
 
         target.return = function(){

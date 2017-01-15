@@ -24,6 +24,9 @@
             getRating();
         } else {
             target.model = cache.get('model');
+            if (target.model === undefined){
+                $location.path('#');
+            }
         }
 
 
@@ -34,6 +37,7 @@
                 target.userRating.EntityId = $routeParams.albumId;
                 rated = true;
                 addRating();
+                return;
             }
             updateRating();
         };
@@ -120,20 +124,36 @@
         };
 
         target.save = function(){
+
+            if (target.model === undefined || target.model.Name === undefined || $.trim(target.model.Name)==='' ){
+                toastr.error('Fields cannot be empty!');
+                return;
+            }
+            console.log(target.model);
             var onSuccess = function(success){
                 toastr.success('Success');
                 $location.path('/album/show/'+success.data.Id);
             };
             var onError = function(error){
                 console.log(error);
-                toastr.error(error.data.Error);
+                toastr.error(http.getErrorMessage(error));
             };
             if ($location.url().indexOf('edit')==-1) http.post('/album/add',target.model,onSuccess,onError);
             else http.put('/album/update',target.model,onSuccess,onError);
         };
 
+        target.delete = function(){
+            http.delete('/album/delete/'+target.model.Id,function(success){
+                toastr.success('Success');
+                $location.path('/artist/show/'+target.model.Artist.Id);
+            }, function(error){
+                toastr.error(http.getErrorMessage(error));
+                console.log(error);
+            });
+        };
+
         target.addSong = function(){
-            var song = {Album : target.model, Number : 1};
+            var song = {Album : target.model, Number : 1, Length : '00:00:00'};
             cache.put('model',song);
             $location.path('/song/add');
         };

@@ -20,6 +20,10 @@
 
         } else {
             target.model = cache.get('model');
+
+            if (target.model === undefined){
+                $location.path('#');
+            }
         }
 
         target.change = function(){
@@ -29,6 +33,7 @@
                 target.userRating.EntityId = $routeParams.songId;
                 rated = true;
                 addRating();
+                return;
             }
             updateRating();
         };
@@ -125,13 +130,19 @@
         };
 
         target.save = function(){
+
+            if (target.model === undefined || target.model.Title === undefined || $.trim(target.model.Title)===''){
+                toastr.error('Title cannot be empty!');
+                return;
+            }
+
             var onSuccess = function(success){
                 toastr.success('Success');
                 $location.path('/song/show/'+success.data.Id);
             };
             var onError = function(error){
                 console.log(error);
-                toastr.error(error.data.Error);
+                toastr.error(http.getErrorMessage(error));
             };
             if ($location.url().indexOf('edit')==-1) http.post('/song/add',target.model,onSuccess,onError);
             else http.put('/song/update',target.model,onSuccess,onError);
@@ -140,9 +151,9 @@
         target.delete = function(){
             http.delete('/song/delete/'+target.model.Id,function(success){
                 toastr.success('Success');
-                $location.path('/album/'+target.model.Album.Id);
+                $location.path('/album/show/'+target.model.Album.Id);
             }, function(error){
-                toastr.error(error);
+                toastr.error(http.getErrorMessage(error));
                 console.log(error);
             });
         };

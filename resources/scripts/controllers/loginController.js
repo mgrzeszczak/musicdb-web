@@ -5,6 +5,15 @@
 
         target.login = function(){
             console.log(target.form);
+            if (target.form === undefined
+                || target.form.login === undefined
+                || target.form.password === undefined
+                || $.trim(target.form.login) === ''
+                || $.trim(target.form.password) === '') {
+                toastr.error("Fields cannot be empty.");
+                return;
+            }
+
             http.post('/user/login',target.form,function(success){
                 var data = {
                     token : success.data.Token,
@@ -16,7 +25,7 @@
                 toastr.success('Hello '+data.login,'Successfully logged in');
                 $location.path('/home');
             },function(error){
-                toastr.error('Invalid data.','Failed to log in');
+                toastr.error('Invalid data.',http.getErrorMessage(error));
             });
         };
         target.register = function(){

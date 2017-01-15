@@ -5,8 +5,8 @@
         target.focus = 'song';
 
         var search = function(type,page){
-
-            console.log(type,page);
+            console.log(target.searchText);
+            //console.log(type,page);
 
             var url = '/'+type+'/search?searchText='+target.searchText;
             if (page!=undefined) url = url+'&pageNr='+page;
