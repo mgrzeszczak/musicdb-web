@@ -105,6 +105,7 @@
         function getComments(page){
             commentService.getComments($routeParams.artistId,'ARTIST',page!=undefined?page : 1,function(success){
                 target.commentPage = success.data;
+                console.log('Comments!');
                 console.log(success.data);
             },function(error){
                 toastr.error('Cannot download comments');
