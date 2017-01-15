@@ -1,5 +1,5 @@
 (function(){
-    angular.module('application').controller('navigationController',function(loginService){
+    angular.module('application').controller('navigationController',function(loginService,toastr){
         var target = this;
 
         target.isLoggedIn = function(){
@@ -16,6 +16,7 @@
 
         target.logOut = function(){
             loginService.logOut();
+            toastr.success('Successfully logged out!');
         };
 
     });

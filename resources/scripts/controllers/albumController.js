@@ -103,11 +103,17 @@
         };
 
         target.postComment = function(){
+            if (target.comment === undefined || target.comment.Content === undefined || $.trim(target.comment.Content) === ''){
+                toastr.error('Comment cannot be empty!');
+                return;
+            }
+            console.log(target.comment);
             target.comment.EntityId = $routeParams.albumId;
             target.comment.EntityType = 'ALBUM';
             http.post('/comment/add',target.comment,function(success){
-                toastr.success('Success');
+                toastr.success('Comment posted');
                 getComments(1);
+                target.comment.Content = '';
                 console.log(success);
             },function(error){
                 toastr.error('Error');
@@ -131,7 +137,7 @@
             }
             console.log(target.model);
             var onSuccess = function(success){
-                toastr.success('Success');
+                toastr.success('Album saved');
                 $location.path('/album/show/'+success.data.Id);
             };
             var onError = function(error){
@@ -144,7 +150,7 @@
 
         target.delete = function(){
             http.delete('/album/delete/'+target.model.Id,function(success){
-                toastr.success('Success');
+                toastr.success('Album deleted');
                 $location.path('/artist/show/'+target.model.Artist.Id);
             }, function(error){
                 toastr.error(http.getErrorMessage(error));

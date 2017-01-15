@@ -1,9 +1,15 @@
 <div>
-    <h2>Rating</h2>
-    Average {{app.averageRating}}
-    <div>
-        <div>
-            You
+    <div class="row">
+        <div class="col-md-2">
+            <h4>Rating: </h4>
+        </div>
+        <div class="col-md-2">
+            <h4>Average {{app.averageRating}}</h4>
+        </div>
+        <div class="col-md-1">
+            <h4>You</h4>
+        </div>
+        <div class="col-md-1">
             <select id="rating" name="rating" ng-model="app.userRating.Value" ng-change="app.change()">
                 <option value="1">1</option>
                 <option value="2">2</option>

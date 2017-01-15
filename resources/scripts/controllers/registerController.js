@@ -16,7 +16,7 @@
                 return;
             }
 	    http.post('/user/register',target.form,function(success){
-                    toastr.success('','Successfully registered');
+                    toastr.success('','Successfully registered!');
                     $location.path('/login');
 		},function(error){
                     console.log(error.data);

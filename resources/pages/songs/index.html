@@ -1,23 +1,54 @@
 <div class="jumbotron">
-    <h1>{{app.model.Title}}</h1>
-    <h2>From: <a href="{{'#album/show/'+app.model.Album.Id}}">{{app.model.Album.Name}}</a></h2>
-    <h2>By: <a href="{{'#artist/show/'+app.model.Album.Artist.Id}}">{{app.model.Album.Artist.Name}}</a></h2>
-    <h3>Number: {{app.model.Number}}</h3>
-    <h3>Length: {{app.model.Length}}</h3>
+    <div class="row">
+        <div class="col-md-2">
+            <h2>{{app.model.Title}}</h2>
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-warning" ng-click="app.edit()">Edit</button>
+            <button class="btn btn-danger" ng-click="app.delete()">Delete</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <h4>From:</h4>
+        </div>
+        <div class="col-md-8">
+            <h4><a href="{{'#album/show/'+app.model.Album.Id}}">{{app.model.Album.Name}}</a></h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <h4>By:</h4>
+        </div>
+        <div class="col-md-8">
+            <h4><a href="{{'#artist/show/'+app.model.Album.Artist.Id}}">{{app.model.Album.Artist.Name}}</a></h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <h4>Number:</h4>
+        </div>
+        <div class="col-md-8">
+            <h4>{{app.model.Number}}</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <h4>Length:</h4>
+        </div>
+        <div class="col-md-8">
+            <h4>{{app.model.Length}}</h4>
+        </div>
+    </div>
 
     <div ng-include="'resources/pages/rating/index.html'"></div>
 
-    <div>
-        <button class="btn btn-warning" ng-click="app.edit()">Edit</button>
-        <button class="btn btn-danger" ng-click="app.delete()">Delete</button>
-    </div>
+
     <div class="yt-container">
         <iframe ng-show="app.model.YoutubeUrl!=null" width="480" height="270" src="{{app.trustSrc(app.model.YoutubeUrl)}}" frameborder="0" allowfullscreen></iframe>
     </div>
 
-
-
-    <h3>Lyrics</h3>
+    <h4>Lyrics</h4>
     <p style="white-space: pre-wrap;">{{app.model.Lyrics}}</p>
 
     <div ng-include="'resources/pages/comments/post.html'"></div>

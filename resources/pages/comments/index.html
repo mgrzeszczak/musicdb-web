@@ -1,15 +1,22 @@
 <div>
-    <h2>Comments</h2>
-    <ul>
-        <li ng-repeat="comment in app.commentPage.Items">
-            <div>
-                <h2>{{comment.User.Login}}</h2>
-                <h3>{{comment.TimeStamp}}</h3>
-                <p>{{comment.Content}}</p>
-                <button class="btn btn-danger" ng-show="app.role=='ADMIN'" ng-click="app.deleteComment(comment.Id)">Delete</button>
-            </div>
-        </li>
-    </ul>
+    <div class="row">
+        <div class="col-md-2">
+            <h4>Comments</h4>
+        </div>
+    </div>
+    <div class="row">
+        <ul>
+            <li ng-repeat="comment in app.commentPage.Items">
+                <div>
+                    <h4>{{comment.User.Login}}</h4>
+                    <h5>{{comment.TimeStamp}}</h5>
+                    <p>{{comment.Content}}</p>
+                    <button class="btn btn-danger" ng-show="app.role=='ADMIN'" ng-click="app.deleteComment(comment.Id)">Delete</button>
+                </div>
+            </li>
+        </ul>
+    </div>
+
     <nav>
         <ul class="pager">
             <li><button class="btn btn-default" ng-class="{disabled : app.commentPage.PageNumber===1 || app.commentPage===undefined}" ng-click="app.previousCommentPage()">Previous</button></li>

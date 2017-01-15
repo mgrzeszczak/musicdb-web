@@ -77,13 +77,21 @@
                 if(remember === true) {
 
                     // TODO: cookie expiration date
-                    /*var now = new Date(),
+                    var now = new Date(),
                         // this will set the expiration to 12 months
                         exp = new Date(now.getFullYear()+1, now.getMonth(), now.getDate());
-                    $cookies.put('someToken','blabla',{
+                    /*$cookies.put('someToken','blabla',{
                         expires: exp
-                    });*/
+                    })*/
+                    $cookieStore.put(COOKIE_NAME,{
+                        login: login,
+                        token: token,
+                        id: id,
+                        role: role,
+                        expires : exp
+                    });
 
+                } else {
                     $cookieStore.put(COOKIE_NAME,{
                         login: login,
                         token: token,
@@ -107,7 +115,7 @@
     }]);
     angular.module("application").factory('http',function($http, loginService,toastr) {
         var request = function(method, url, data, onSuccess, onError) {
-            var baseUrl = 'http://localhost:55059/api';
+            var baseUrl = 'http://localhost:8080/api';
             var headers = {
                 'Content-Type': 'application/json'
             };

@@ -100,12 +100,17 @@
         };
 
         target.postComment = function(){
+            if (target.comment === undefined || target.comment.Content === undefined || $.trim(target.comment.Content) === ''){
+                toastr.error('Comment cannot be empty!');
+                return;
+            }
             target.comment.EntityId = $routeParams.songId;
             target.comment.EntityType = 'SONG';
             http.post('/comment/add',target.comment,function(success){
-                toastr.success('Success');
+                toastr.success('Comment posted');
                 getComments(1);
                 console.log(success);
+                target.comment.Content = '';
             },function(error){
                 toastr.error('Error');
                 console.log(error);
@@ -137,7 +142,7 @@
             }
 
             var onSuccess = function(success){
-                toastr.success('Success');
+                toastr.success('Song saved');
                 $location.path('/song/show/'+success.data.Id);
             };
             var onError = function(error){
@@ -150,7 +155,7 @@
 
         target.delete = function(){
             http.delete('/song/delete/'+target.model.Id,function(success){
-                toastr.success('Success');
+                toastr.success('Song deleted');
                 $location.path('/album/show/'+target.model.Album.Id);
             }, function(error){
                 toastr.error(http.getErrorMessage(error));
