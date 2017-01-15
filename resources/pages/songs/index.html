@@ -1,43 +1,43 @@
 <div class="jumbotron">
     <div class="row">
         <div class="col-md-2">
-            <h2>{{app.model.Title}}</h2>
+            <h1>{{app.model.Title}}</h1>
         </div>
+    </div>
+    <div class="row">
+        <button class="btn btn-warning" ng-click="app.edit()">Edit</button>
+        <button class="btn btn-danger" ng-click="app.delete()">Delete</button>
+    </div>
+    <div class="row">
         <div class="col-md-2">
-            <button class="btn btn-warning" ng-click="app.edit()">Edit</button>
-            <button class="btn btn-danger" ng-click="app.delete()">Delete</button>
+            <h2>From:</h2>
+        </div>
+        <div class="col-md-8">
+            <h2><a href="{{'#album/show/'+app.model.Album.Id}}">{{app.model.Album.Name}}</a></h2>
         </div>
     </div>
     <div class="row">
         <div class="col-md-2">
-            <h4>From:</h4>
+            <h3>By:</h3>
         </div>
         <div class="col-md-8">
-            <h4><a href="{{'#album/show/'+app.model.Album.Id}}">{{app.model.Album.Name}}</a></h4>
+            <h3><a href="{{'#artist/show/'+app.model.Album.Artist.Id}}">{{app.model.Album.Artist.Name}}</a></h3>
         </div>
     </div>
     <div class="row">
         <div class="col-md-2">
-            <h4>By:</h4>
+            <h3>Number:</h3>
         </div>
         <div class="col-md-8">
-            <h4><a href="{{'#artist/show/'+app.model.Album.Artist.Id}}">{{app.model.Album.Artist.Name}}</a></h4>
+            <h3>{{app.model.Number}}</h3>
         </div>
     </div>
     <div class="row">
         <div class="col-md-2">
-            <h4>Number:</h4>
+            <h3>Length:</h3>
         </div>
         <div class="col-md-8">
-            <h4>{{app.model.Number}}</h4>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-2">
-            <h4>Length:</h4>
-        </div>
-        <div class="col-md-8">
-            <h4>{{app.model.Length}}</h4>
+            <h3>{{app.model.Length}}</h3>
         </div>
     </div>
 
@@ -48,7 +48,7 @@
         <iframe ng-show="app.model.YoutubeUrl!=null" width="480" height="270" src="{{app.trustSrc(app.model.YoutubeUrl)}}" frameborder="0" allowfullscreen></iframe>
     </div>
 
-    <h4>Lyrics</h4>
+    <h3>Lyrics</h3>
     <p style="white-space: pre-wrap;">{{app.model.Lyrics}}</p>
 
     <div ng-include="'resources/pages/comments/post.html'"></div>

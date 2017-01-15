@@ -1,21 +1,30 @@
 <div>
     <div class="row">
         <div class="col-md-2">
-            <h4>Comments</h4>
+            <h3>Comments</h3>
         </div>
     </div>
-    <div class="row">
-        <ul>
-            <li ng-repeat="comment in app.commentPage.Items">
-                <div>
-                    <h4>{{comment.User.Login}}</h4>
-                    <h5>{{comment.TimeStamp}}</h5>
-                    <p>{{comment.Content}}</p>
+    <ul class="list-group" >
+        <li class="list-group-item" ng-repeat="comment in app.commentPage.Items">
+            <div class="row">
+                <div class="col-md-2">
+                    <h3>User: {{comment.User.Login}}</h3>
+
+                </div>
+                <div class="col-md-4">
+                    <h3>Date: {{comment.TimeStamp}}</h3>
+                </div>
+                <div class="col-md-4">
                     <button class="btn btn-danger" ng-show="app.role=='ADMIN'" ng-click="app.deleteComment(comment.Id)">Delete</button>
                 </div>
-            </li>
-        </ul>
-    </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <p>{{comment.Content}}</p>
+                </div>
+            </div>
+        </li>
+    </ul>
 
     <nav>
         <ul class="pager">
