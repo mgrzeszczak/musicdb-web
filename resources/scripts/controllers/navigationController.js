@@ -1,5 +1,5 @@
 (function(){
-    angular.module('application').controller('navigationController',function(loginService,toastr){
+    angular.module('application').controller('navigationController',['loginService','toastr','cache','$location','$routeParams',function(loginService,toastr,cache,$location,$routeParams){
         var target = this;
 
         target.isLoggedIn = function(){
@@ -19,5 +19,16 @@
             toastr.success('Successfully logged out!');
         };
 
-    });
+        console.log('NAVIGATION');
+        console.log($location.url());
+        target.notHome = function(){
+            return document.getElementById('search-box')==undefined;
+        };
+
+        target.search = function(){
+            cache.put('searchText',target.searchText);
+            $location.url('/home');
+        }
+
+    }]);
 })();

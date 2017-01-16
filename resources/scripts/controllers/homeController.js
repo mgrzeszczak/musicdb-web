@@ -1,8 +1,10 @@
 (function(){
 
-    angular.module('application').controller('homeController',function(http,$location){
+    angular.module('application').controller('homeController',['http','$location','cache',function(http,$location,cache){
         var target = this;
         target.focus = 'song';
+
+        if (cache.get('searchText')!=undefined) target.searchText = cache.get('searchText');
 
         var search = function(type,page){
 
@@ -36,5 +38,5 @@
             search('artist');
         };
         target.search();
-    });
+    }]);
 })();
