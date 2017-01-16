@@ -5,19 +5,16 @@
         target.focus = 'song';
 
         var search = function(type,page){
-            console.log(target.searchText);
-            //console.log(type,page);
 
-            var url = '/'+type+'/search?searchText='+target.searchText;
+            var url = '/'+type+'/search?searchText='+((target.searchText===undefined)? '' : target.searchText);
             if (page!=undefined) url = url+'&pageNr='+page;
 
             http.get(url,
                 function(success){
                     target[type+'Page'] = success.data;
-                    console.log(success.data);
                 },
                 function(error){
-                    console.log(error);
+
                 });
         };
 
@@ -38,5 +35,6 @@
             search('album');
             search('artist');
         };
+        target.search();
     });
 })();

@@ -98,13 +98,16 @@
         }
 
         target.deleteComment = function(id){
-            commentService.deleteComment(id);
-            getComments(target.commentPage.PageNumber);
+            commentService.deleteComment(id,function(){
+                getComments(target.commentPage.PageNumber);
+            });
         };
 
         function getComments(page){
             commentService.getComments($routeParams.artistId,'ARTIST',page!=undefined?page : 1,function(success){
-                target.commentPage = success.data;
+                if (success.data.Items.length==0 && success.data.PageNumber > success.data.TotalPages){
+                    getComments(success.data.TotalPages);
+                } else target.commentPage = success.data;
                 console.log('Comments!');
                 console.log(success.data);
             },function(error){

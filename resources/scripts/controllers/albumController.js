@@ -82,14 +82,18 @@
         }
 
         target.deleteComment = function(id){
-            commentService.deleteComment(id);
-            getComments(target.commentPage.PageNumber);
+            commentService.deleteComment(id,function(){
+                getComments(target.commentPage.PageNumber);
+            });
         };
 
         function getComments(page){
             commentService.getComments($routeParams.albumId,'ALBUM',page!=undefined?page : 1,function(success){
-                target.commentPage = success.data;
                 console.log(success.data);
+                if (success.data.Items.length==0 && success.data.PageNumber > success.data.TotalPages){
+                    getComments(success.data.TotalPages);
+                } else target.commentPage = success.data;
+
             },function(error){
                 toastr.error('Cannot download comments');
             });

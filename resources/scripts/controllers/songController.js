@@ -79,13 +79,16 @@
         }
 
         target.deleteComment = function(id){
-            commentService.deleteComment(id);
-            getComments(target.commentPage.PageNumber);
+            commentService.deleteComment(id,function(){
+                getComments(target.commentPage.PageNumber);
+            });
         };
 
         function getComments(page){
             commentService.getComments($routeParams.songId,'SONG',page!=undefined?page : 1,function(success){
-                target.commentPage = success.data;
+                if (success.data.Items.length==0 && success.data.PageNumber > success.data.TotalPages){
+                    getComments(success.data.TotalPages);
+                } else target.commentPage = success.data;
                 console.log(success.data);
             },function(error){
                 toastr.error('Cannot download comments');
@@ -134,12 +137,18 @@
             //$window.location.assign('#song/'+$routeParams.songId+'/edit');
         };
 
+        var ytRegex = /^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$/;
+
         target.save = function(){
 
             if (target.model === undefined || target.model.Title === undefined || $.trim(target.model.Title)===''){
                 toastr.error('Title cannot be empty!');
                 return;
             }
+            if (ytRegex.test(target.model.YoutubeUrl)){
+                var yt = target.model.YoutubeUrl;
+                target.model.YoutubeUrl = 'https://www.youtube.com/embed/'+yt.substr(yt.indexOf('v=')+2);
+            } else target.model.YoutubeUrl = undefined;
 
             var onSuccess = function(success){
                 toastr.success('Song saved');

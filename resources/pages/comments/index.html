@@ -8,11 +8,11 @@
         <li class="list-group-item" ng-repeat="comment in app.commentPage.Items">
             <div class="row">
                 <div class="col-md-2">
-                    <h3>User: {{comment.User.Login}}</h3>
+                    <h3>Author: {{comment.User.Login}}</h3>
 
                 </div>
                 <div class="col-md-4">
-                    <h3>Date: {{comment.TimeStamp}}</h3>
+                    <h3>{{comment.TimeStamp.substr(0,comment.TimeStamp.indexOf('T'))}} {{comment.TimeStamp.substr(comment.TimeStamp.indexOf('T')+1)}}</h3>
                 </div>
                 <div class="col-md-4">
                     <button class="btn btn-danger" ng-show="app.role=='ADMIN'" ng-click="app.deleteComment(comment.Id)">Delete</button>

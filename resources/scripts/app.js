@@ -30,9 +30,10 @@
                 if (page!=undefined) url = url+"&pageNr="+page;
                 http.get(url,onSuccess,onError);
             },
-            deleteComment : function(id){
+            deleteComment : function(id,after){
                 http.delete('/comment/delete/'+id,function(success){
                     toastr.success('Comment deleted');
+                    after();
                 }, function(error){
                     toastr.error('Failed to delete comment');
                 });
